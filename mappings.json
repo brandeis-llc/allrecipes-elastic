@@ -1,0 +1,53 @@
+{
+  "mappings": {
+    "properties": {
+      "brat_url": {
+        "type": "keyword",
+        "index": false
+      },
+      "cook_time": {
+        "type": "integer"
+      },
+      "directions": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "idx": {
+        "type": "integer"
+      },
+      "ingredients": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "prep_time": {
+        "type": "integer"
+      },
+      "serves": {
+        "type": "integer"
+      },
+      "url": {
+        "type": "keyword",
+        "index": false
+      }
+    }
+  }
+}
