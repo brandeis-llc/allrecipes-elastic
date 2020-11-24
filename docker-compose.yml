@@ -2,7 +2,7 @@ version: '2.2'
 services:
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
-    container_name: es01
+    container_name: allrecipes-es01
     environment:
       - node.name=es01
       - cluster.name=es-docker-cluster
@@ -23,7 +23,7 @@ services:
 
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
-    container_name: es02
+    container_name: allrecipes-es02
     environment:
       - node.name=es02
       - cluster.name=es-docker-cluster
@@ -44,7 +44,7 @@ services:
 
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
-    container_name: es03
+    container_name: allrecipes-es03
     environment:
       - node.name=es03
       - cluster.name=es-docker-cluster
@@ -65,9 +65,9 @@ services:
 
   kib01:
     image: docker.elastic.co/kibana/kibana:7.10.0
-    container_name: kib01
+    container_name: allrecipes-kibana
     ports:
-      - 5601:5601
+      - 8183:5601
     environment:
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: http://es01:9200
