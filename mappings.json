@@ -9,34 +9,20 @@
         "type": "integer"
       },
       "directions": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
+        "fielddata": true,
+        "type": "text"
       },
       "idx": {
         "type": "integer"
       },
       "ingredients": {
+        "fielddata": true,
         "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
+        "analyzer": "ingredient_analyzer"
       },
       "name": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
+        "fielddata": true,
+        "type": "text"
       },
       "prep_time": {
         "type": "integer"
@@ -47,6 +33,27 @@
       "url": {
         "type": "keyword",
         "index": false
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "ingredient_analyzer": {
+          "tokenizer": "whitespace",
+          "filter": {
+            "unit_filter": {
+              "type": "stop",
+              "ignore_case": true,
+              "stopwords": []
+            },
+            "measure_filter": {
+              "type": "pattern_replace",
+              "pattern": "\\b[0-9/]+\\b",
+              "replacement": ""
+            }
+          }
+        }
       }
     }
   }
