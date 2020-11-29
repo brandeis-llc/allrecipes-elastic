@@ -8,10 +8,6 @@
       "cook_time": {
         "type": "integer"
       },
-      "directions": {
-        "fielddata": true,
-        "type": "text"
-      },
       "idx": {
         "type": "integer"
       },
@@ -19,6 +15,11 @@
         "fielddata": true,
         "type": "text",
         "analyzer": "ingredient_analyzer"
+      },
+      "directions": {
+        "fielddata": true,
+        "type": "text",
+        "analyzer": "direction_analyzer"
       },
       "name": {
         "fielddata": true,
@@ -42,6 +43,10 @@
         "ingredient_analyzer": {
           "tokenizer": "standard",
           "filter": ["stem", "unit_filter", "measure_filter"]
+        },
+        "direction_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["stem", "stepnum_filter", "commonstopword"]
         }
       },
       "filter": {
@@ -58,8 +63,16 @@
           "type": "pattern_replace",
           "pattern": "\\b[0-9/]+\\b",
           "replacement": ""
+        },
+        "stepnum_filter": {
+          "type": "pattern_replace",
+          "pattern": "^[0-9]+\\b",
+          "replacement": ""
+        },
+        "commonstopword": {
+          "type": "stop",
+          "ignore_case": true
         }
-
       }
     }
   }
