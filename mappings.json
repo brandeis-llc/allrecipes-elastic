@@ -40,20 +40,26 @@
     "analysis": {
       "analyzer": {
         "ingredient_analyzer": {
-          "tokenizer": "whitespace",
-          "filter": {
-            "unit_filter": {
-              "type": "stop",
-              "ignore_case": true,
-              "stopwords": []
-            },
-            "measure_filter": {
-              "type": "pattern_replace",
-              "pattern": "\\b[0-9/]+\\b",
-              "replacement": ""
-            }
-          }
+          "tokenizer": "standard",
+          "filter": ["stem", "unit_filter", "measure_filter"]
         }
+      },
+      "filter": {
+        "stem":  {
+          "type": "kstem",
+          "language": "english"
+        },
+        "unit_filter": {
+          "type": "stop",
+          "ignore_case": true,
+          "stopwords": []
+        },
+        "measure_filter": {
+          "type": "pattern_replace",
+          "pattern": "\\b[0-9/]+\\b",
+          "replacement": ""
+        }
+
       }
     }
   }

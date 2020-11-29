@@ -1,19 +1,19 @@
 import json
 import sys
 from datetime import datetime
-import requests
 
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 
-es_index_name = f"allrecipes-{datetime.now().strftime('%y-%m-%d-%H%M')}"
+es_index_name = f"allrecipes-{datetime.now().strftime('%y-%m-%d')}"
 es_index = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
-measures = "teaspoon teaspoons tablespoon tablespoons ounce cup oz"
+measures = "teaspoon teaspoons tablespoon tablespoons ounce cup oz pound lbs can package and or all to as into"
 with open('mappings.json') as mapping_f:
     config = json.load(mapping_f)
-    config["settings"]["analysis"]["analyzer"]["ingredient_analyzer"]["filter"]["unit_filter"]["stopwords"]\
+    config["settings"]["analysis"]["filter"]["unit_filter"]["stopwords"]\
         = measures.split()
+es_index.indices.delete(index=es_index_name, ignore=[404])
 es_index.indices.create(es_index_name, body=config)
 idx_field_name = 'idx'
 
